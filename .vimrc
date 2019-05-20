@@ -115,8 +115,8 @@ endif
 " => Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use tabs not spaces
-set noexpandtab
+" Use spaces not tabs
+set expandtab
 
 " Number of visual spaces per TAB
 set tabstop=2
