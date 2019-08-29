@@ -31,7 +31,9 @@ Plug 'ap/vim-css-color'
 Plug 'pangloss/vim-javascript'
 Plug 'gavocanov/vim-js-indent'
 Plug 'mxw/vim-jsx'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'prettier/vim-prettier', { 
+\ 'do': 'yarn install',
+\ 'for': ['css', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html']}
 Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
 Plug 'plasticboy/vim-markdown'
@@ -41,7 +43,6 @@ Plug 'mattn/emmet-vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'Valloric/YouCompleteMe'
 Plug 'alvan/vim-closetag'
 
 call plug#end()
@@ -71,6 +72,18 @@ command W w !sudo tee % > /dev/null
 
 " Sets backup directory
 set backupdir=~/vimtmp,.
+
+" Use system clipboard (ctrl+c ctrl+v)
+set clipboard=unnamedplus
+
+" Copy line to the clipboard
+noremap <Leader>y "+yy
+
+" Copy to the clipboard
+noremap <Leader>y "+y
+
+" Paste using the clipboard
+noremap <Leader>p "+p
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UI Config
@@ -244,12 +257,6 @@ let g:indentLine_enabled = 0
 let g:indentLine_char = '|'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => JSX
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" JSX only in .jsx files
-let g:jsx_ext_required = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Prettier
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " print spaces between brackets
@@ -259,8 +266,23 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#arrow_parens = 'avoid'
 
 " no trailing commas
-let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#trailing_comma = 'es5'
 
+" use default babylon parser 
+let g:prettier#config#parser = 'babylon'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ale 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable eslint only for js
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\}
+
+" auto fix on save via eslint
+let g:ale_fix_on_save = 1
+
+" fix based on filetype use eslint for js
+let g:ale_fixers = {
+      \   'javascript': ['eslint'],
 \}
