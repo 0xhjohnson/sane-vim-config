@@ -62,7 +62,7 @@ filetype indent on
 set autoread
 
 " Set leader for extra key combos
-let mapleader = ","
+map <Space> <Leader>
 
 " Fast saving
 nmap <leader>w :w!<cr>
