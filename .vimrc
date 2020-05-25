@@ -13,8 +13,8 @@
 " -> Lightline 
 " -> Nerdtree
 " -> Gitgutter
-" -> IndentLine
 " -> Prettier
+" -> Ale 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -22,28 +22,29 @@
 " => Vim Plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Automatically install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin()
 Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'ap/vim-css-color'
-Plug 'pangloss/vim-javascript'
-Plug 'gavocanov/vim-js-indent'
-Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'prettier/vim-prettier', { 
 \ 'do': 'yarn install',
 \ 'for': ['css', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html']}
-Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
-Plug 'plasticboy/vim-markdown'
+Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
-Plug 'davidhalter/jedi-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'alvan/vim-closetag'
 
 call plug#end()
 
@@ -125,7 +126,7 @@ if has('multi_byte')
 endif 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Tabs
+" => Tabs or lack thereof
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use spaces not tabs
@@ -247,23 +248,10 @@ let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => IndentLine
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Disable by default turn on with :IndentLinesToggle
-let g:indentLine_enabled = 0
-
-" Sets the character to display indent level
-let g:indentLine_char = '|'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Prettier
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " print spaces between brackets
 let g:prettier#config#bracket_spacing = 'true'
-
-" avoid arrow parens
-let g:prettier#config#arrow_parens = 'avoid'
 
 " no trailing commas
 let g:prettier#config#trailing_comma = 'none'
