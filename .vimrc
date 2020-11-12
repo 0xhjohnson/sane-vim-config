@@ -14,7 +14,9 @@
 " -> Nerdtree
 " -> Gitgutter
 " -> Prettier
-" -> Ale 
+" -> Ale
+" -> Rust
+" -> Deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -36,7 +38,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'ap/vim-css-color'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'prettier/vim-prettier', { 
 \ 'do': 'yarn install',
 \ 'for': ['css', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html']}
@@ -45,7 +47,10 @@ Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
-
+Plug 'rust-lang/rust.vim'
+Plug 'tmsvg/pear-tree'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'jparise/vim-graphql'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -274,3 +279,28 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
       \   'javascript': ['eslint'],
 \}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Rust 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto-format using rustfmt on save
+let g:rustfmt_autosave = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Pear tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable smart settings
+let g:pear_tree_repeatable_expand = 0
+let g:pear_tree_smart_backspace = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_openers = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Deoplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable deoplete at nvim startup
+let g:deoplete#enable_at_startup = 1
+
+" Tab completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
